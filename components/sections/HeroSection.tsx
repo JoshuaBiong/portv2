@@ -1,10 +1,46 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface MousePosition {
   x: number;
   y: number;
 }
+
+
+const  letterVariants = (text: string) => ({  
+  hidden: { opacity: 0, y: 50, rotateX: -90, scale: 0.8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    scale: 1,
+    transition: {
+      delay: 0.5 + i * 0.05,
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  }),
+});
+
+const splitText = (text: string) => {
+  return text.split('').map((char, i) => (
+    <motion.span
+      key={i}
+      className="inline-block"
+      initial={{ opacity: 0, y: 50, rotateX: -90, scale: 0.8 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+      transition={{
+        delay: 0.5 + i * 0.05,
+        duration: 0.6,
+        ease: 'easeOut',
+      }}
+    >
+      {char === ' ' ? '\u00A0' : char}
+    </motion.span>
+  ));
+};
+
 
 const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 });
@@ -73,7 +109,7 @@ const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 opacity-15 transition-transform duration-300 ease-out"
         style={{
-          backgroundImage: `
+          backgroundImage:`
             linear-gradient(rgba(139, 69, 19, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(139, 69, 19, 0.1) 1px, transparent 1px)
           `,
@@ -81,25 +117,26 @@ const Hero: React.FC = () => {
           transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`,
         }}
       />
-
       {/* Floating typographic elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Large background text */}
-        <div 
-          className="absolute text-9xl font-black text-black/60 opacity-25 select-none animate-float-slow"
-          style={{
-            top: '10%',
-            right: '-5%',
-            transform: `rotate(-15deg) translate(${scrollY * 0.1}px, ${scrollY * 0.05}px)`,
-            fontSize: 'clamp(8rem, 20vw, 24rem)',
-            lineHeight: '0.8',
-          }}
-        >
-          CODE
-        </div>
+        <motion.div
+  className="absolute text-9xl font-black text-black/60 opacity-25 select-none"
+  style={{
+    top: '10%',
+    right: '-5%',
+    fontSize: 'clamp(8rem, 20vw, 24rem)',
+    lineHeight: '0.8',
+  }}
+  initial={{ y: 0 }}
+  animate={{ y: scrollY * 0.05 }}
+  transition={{ type: 'tween', duration: 0.5 }}
+>
+  CODE
+</motion.div>
         
         <div 
-          className="absolute text-8xl font-black text-amber-200 opacity-20 select-none animate-float-reverse"
+          className="absolute text-8xl font-black text-amber-300 opacity-5 select-none animate-float-reverse"
           style={{
             bottom: '10%',
             left: '-5%',
@@ -108,7 +145,7 @@ const Hero: React.FC = () => {
             lineHeight: '0.8',
           }}
         >
-          SECURITY
+          DESIGN
         </div>
       </div>
 
@@ -117,10 +154,10 @@ const Hero: React.FC = () => {
         <div className="w-full max-w-7xl mx-auto">
           
           {/* Main heading with dramatic typography */}
-          <div className="mb-8 sm:mb-12">
+          <div className="mb-8 sm:mb-3">
             {/* First name - extra large and bold */}
-            <h1 
-              className="font-black uppercase tracking-tighter leading-none mb-2 sm:mb-4 animate-slide-up"
+           <motion.h1
+              className="font-black uppercase tracking-tighter leading-none mb-2 sm:mb-4"
               style={{
                 fontSize: 'clamp(3rem, 12vw, 12rem)',
                 background: `linear-gradient(135deg, 
@@ -132,13 +169,16 @@ const Hero: React.FC = () => {
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                animation: 'gradient-slide 4s ease-in-out infinite, slide-up 1s ease-out 0.3s both',
                 textShadow: '0 0 40px rgba(139, 69, 19, 0.2)',
                 transform: `translateY(${scrollY * 0.1}px)`,
               }}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
             >
-              {splitText('JOSHUA', 0.5)}
-            </h1>
+              {splitText('JOSHUA')}
+            </motion.h1>
+
 
             {/* Last name - offset and stylized */}
             <h1 
@@ -164,7 +204,7 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Professional title with modern layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-5">
             {/* Vertical text on larger screens */}
             <div className="hidden lg:block lg:col-span-2">
               <p 
@@ -176,14 +216,14 @@ const Hero: React.FC = () => {
                   animationFillMode: 'both',
                 }}
               >
-                Business Analyst
+                Aspiring Business Analyst <br/> Full stack Develoepr <br/>
               </p>
             </div>
 
             {/* Main description */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 ">
               <h2 
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-4 animate-slide-up"
+                className="text-2xl sm:text-3xl  md:text-4xl lg:text-5xl font-light leading-tight  mb-4 animate-slide-up"
                 style={{
                   background: 'linear-gradient(90deg, #ffffff, #bababa)',
                   WebkitBackgroundClip: 'text',
@@ -192,11 +232,10 @@ const Hero: React.FC = () => {
                   animationFillMode: 'both',
                 }}
               >
-                Transforming Business Through
-                <br />
-                <span className="font-bold text-amber-700">DevOps Innovation</span>
-                <br />
-                & <span className="font-bold text-red-600">Cyber Security</span>
+                  Bridging
+                <span className="font-bold text-amber-700"> Strategy, </span>
+                <span className="font-bold text-amber-700">Technology, </span>
+                & <span className="font-bold text-red-600"> Security.</span>
               </h2>
 
               {/* Subtitle */}
@@ -207,8 +246,8 @@ const Hero: React.FC = () => {
                   animationFillMode: 'both',
                 }}
               >
-                Bridging the gap between technology and strategy with 
-                cutting-edge solutions that secure and optimize digital ecosystems.
+                Currently open to internships, freelance projects, or collaborations.
+                <br /> Studying: Advanced Business Analysis · ’25  
               </p>
             </div>
 
