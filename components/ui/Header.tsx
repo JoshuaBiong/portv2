@@ -23,8 +23,8 @@ const Header = () => {
         {/* Toggle button */}
      <button
   onClick={toggleExpanded}
-  className={`h-10 w-20 cursor-pointer rounded text-white font-bold z-50 transition-all duration-300 ${
-    expanded ? "border-transparent" : "border border-white"
+  className={`h-12 w-24 cursor-pointer hover:scale-105 rounded text-black font-bold z-50 transition-all duration-300 ${
+    expanded ? "border-transparent" : " bg-gradient-to-br from-black/50 to-gray-300/50 backdrop-blur-xs border border-white"
   }`}
 >
   {expanded ? "Close" : "Menu"}
@@ -39,7 +39,7 @@ const Header = () => {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.8, opacity: 0 }}
       transition={{ type: "spring", stiffness: 180, damping: 18 }}
-      className="absolute top-0 right-0 -z-40 origin-top-right rounded-xl overflow-hidden bg-gradient-to-br from-cyan-200/10 to-blue-300/10 backdrop-blur-xl border border-cyan-200/20 shadow-2xl"
+      className="absolute top-0 right-0 -z-40 origin-top-right rounded-xl overflow-hidden bg-gradient-to-br from-black/50 to-gray-300/50 backdrop-blur-xs border border-white shadow-2xl"
     >
       <motion.nav
         className="flex flex-col p-6 space-y-4 w-[240px] sm:w-[300px] md:w-[400px] lg:w-[500px]"

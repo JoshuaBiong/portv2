@@ -68,7 +68,7 @@ const AboutSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full min-h-screen relative py-24 px-4 sm:px-6 lg:px-8 overflow-visible"
+      className="w-full min-h-screen relative py-24 px-4 sm:px-6 lg:px-8 overflow-visible "
       style={{
         background: `
           radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.08) 0%, transparent 50%),
@@ -83,11 +83,9 @@ const AboutSection: React.FC = () => {
           initial={{ opacity: 0, x: 100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-            className="font-black uppercase tracking-wider leading-none text-center"
+            className="font-black uppercase tracking-wider leading-none text-center bg-blue-600"
             style={{
               fontSize: "clamp(2.5rem, 10vw, 10rem)",
-              background:
-                "linear-gradient(45deg, #e74c3c, #f39c12, #e67e22, #d35400, #c0392b)",
               backgroundSize: "300% 300%",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -99,13 +97,13 @@ const AboutSection: React.FC = () => {
         </motion.div>
 
         {/* List */}
-        <div className="flex flex-col space-y-4 md:space-y-2 relative z-10">
+        <div className="flex flex-col  relative z-10">
           {contentItems.map((item) => (
             <div
               key={item.number}
               onMouseMove={(e) => handleMove(e, item)}
               onMouseLeave={handleLeave}
-              className="group relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-white transition-colors duration-300 hover:text-black hover:bg-amber-100 p-6 overflow-visible"
+              className="group relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-white transition-colors duration-300  hover:bg-blue-600 p-6 overflow-visible"
             >
               <span className="text-4xl sm:text-5xl font-bold italic shrink-0">
                 {item.number}
@@ -116,7 +114,7 @@ const AboutSection: React.FC = () => {
               </h2>
 
               {/* underline animation */}
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-[#e74c3c] transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100" />
+              <span className="absolute bottom-0 left-0 w-full h-1 bg-white transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100" />
             </div>
           ))}
         </div>
